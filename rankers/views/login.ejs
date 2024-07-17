@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information Form</title>
+   
+
+    <link rel="stylesheet" href="/css/form.css">
+   <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body style="box-sizing: border-box;padding: 0px;margin:0"> 
+    <nav class="navbar">
+    <div class="navbar-left">
+        <div class="navbar-logo">
+            <h1>Rankers</h1>
+        </div>
+        <div class="navbar-links">
+            <a href="/home">Home</a>
+        </div>
+    </div>
+    <div class="navbar-buttons">
+        
+        <button><a href="/signup" style="text-decoration: none;color:black;">Signup</a></button>
+    </div>
+</nav>
+<form action="/user/login" method="post">
+   
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="text" id="password" name="password" required>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Login">
+    </div>
+</form>
+
+</body>
+</html>
