@@ -17,7 +17,7 @@ app.set('views',path.join(__dirname,'views'));
 app.use(express.static(path.join(__dirname,"public")));
 app.use(express.urlencoded({extended : true}));
 app.use("/user",userRoute);
-mongoose.connect('mongodb://127.0.0.1:27017/ranker').then(()=>{console.log("Db connected successfully");}).catch((err)=>{
+mongoose.connect('mongodb+srv://sa:W2bnN2fhRdP16eVd@rankers.hqvuplj.mongodb.net/?retryWrites=true&w=majority&appName=rankers').then(()=>{console.log("Db connected successfully");}).catch((err)=>{
   console.log(err);
   console.log("errror");
 })
