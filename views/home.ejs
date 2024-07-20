@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rankers Home Page</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff9f40, #ff6347);
+        }
+        .background-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .jellyfish {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: randomMove 10s infinite;
+            transition: transform 0.2s ease, border-radius 0.2s ease, background 0.2s ease;
+        }
+        @keyframes randomMove {
+            0%, 100% {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            25% {
+                top: 20%;
+                left: 80%;
+                transform: translate(-50%, -50%) scale(1.5);
+            }
+            50% {
+                top: 80%;
+                left: 20%;
+                transform: translate(-50%, -50%) scale(2);
+            }
+            75% {
+                top: 50%;
+                left: 30%;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+        .content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            /* z-index: 1; */
+            text-align: center;
+        }
+        .content h1 {
+            font-size: 96px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            transition: text-shadow 0.3s ease, color 0.3s ease;
+        }
+        .content h1.glow {
+            text-shadow: 0 0 20px rgb(187, 178, 178), 0 0 30px rgba(255, 255, 255, 1), 0 0 40px rgb(7, 6, 6);
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+        }
+        .footer a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer a:hover {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation">
+        <div class="jellyfish" id="jellyfish"></div>
+    </div>
+    <div class="content">
+        <h1 id="heading" onclick="location.href='/rankings'">Rankers</h1>
+    </div>
+ 
+    <div class="footer">
+        <a href="/signup">Signup</a> |<a href="/login">Login</a>
+    </div>
+    <script>
+        document.addEventListener('mousemove', function(e) {
+            const jellyfish = document.getElementById('jellyfish');
+            const heading = document.getElementById('heading');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            const scale = 1 + x * 2;
+            const rotation = x * 360;
+            const borderRadius = `${50 + y * 50}% ${50 - y * 50}%`;
+            const backgroundOpacity = 0.7 - y * 0.4;
+
+            jellyfish.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
+            jellyfish.style.borderRadius = borderRadius;
+            jellyfish.style.background = `rgba(255, 255, 255, ${backgroundOpacity})`;
+
+            const jellyfishRect = jellyfish.getBoundingClientRect();
+            const headingRect = heading.getBoundingClientRect();
+
+            const distance = Math.sqrt(
+                Math.pow(e.clientX - (headingRect.left + headingRect.width / 2), 2) +
+                Math.pow(e.clientY - (headingRect.top + headingRect.height / 2), 2)
+            );
+
+            if (distance < 150) {
+                heading.classList.add('glow');
+            } else {
+                heading.classList.remove('glow');
+            }
+        });
+
+        // Reset shape position and style every 10 seconds
+        setInterval(function() {
+            const jellyfish = document.getElementById('jellyfish');
+            jellyfish.style.transition = 'transform 1s ease, border-radius 1s ease, background 1s ease';
+            jellyfish.style.top = '50%';
+            jellyfish.style.left = '50%';
+            jellyfish.style.transform = 'translate(-50%, -50%) scale(1)';
+            jellyfish.style.borderRadius = '50%';
+            jellyfish.style.background = 'rgba(255, 255, 255, 0.7)';
+            setTimeout(() => {
+                jellyfish.style.transition = 'transform 0.2s ease, border-radius 0.2s ease, background 0.2s ease';
+            }, 1000);
+        }, 10000);
+    </script>
+</body>
+</html>
